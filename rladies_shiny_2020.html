@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Aplicaciones Web Interactivas 💻 con Shiny ✨</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Florencia D’Andrea (@cantoflor_87)" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/rladies.css" rel="stylesheet" />
+    <link href="libs/remark-css/rladies-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Aplicaciones Web Interactivas 💻 con Shiny ✨
+## Meetup de R-Ladies Rcia-Ctes y R en el NEA
+### Florencia D’Andrea (<span class="citation">@cantoflor_87</span>)
+### R-Ladies Buenos Aires - R en Baires
+### 21/02/2020
+
+---
+
+
+
+
+class: center, middle
+
+# Licencia
+
+&lt;a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /&gt;&lt;/a&gt;&lt;br /&gt;This work is licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"&gt;Creative Commons Attribution-ShareAlike 4.0 International License&lt;/a&gt;.
+
+---
+
+class: center, inverse, bottom
+background-image: url("Shiny_grande.jpg")
+background-position: 50% 50%
+
+## Aplicaciones Web Interactivas con R
+
+---
+
+# ¡Comencemos!
+
+Una Shiny App  es una página web (UI) conectada a una computadora que ejecuta una sesión de R en vivo (Server)
+
+
+&lt;img src="cheat1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+--
+
+Los usuarios pueden manipular la UI,  lo cual lleva al server (_servidor_) a enviar una actualización de la UI exhibida (mediante ejecución de código en R).
+
+
+.footnote[Source: Guía Rápida Shiny - RStudio.]
+
+---
+
+# App.R 📄
+
+
+
+```r
+library(shiny)
+
+# User interfase
+UI &lt;- fluidPage( ) 
+
+# Server
+Server &lt;- function(input, output){      }
+
+# Combines UI and server
+shinyApp (ui = ui, server = server)
+```
+
+Podes insertar el template usando la plantilla precargada
+
+&lt;img src="snippet_2.png" width="25%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Construyendo una Shiny app
+
+&lt;img src="cheat1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+.pull-left[
+
+**UI**
+
+1. Añadí la plantilla -&gt; ***app.R*** 
+
+1. Selecciona una función de diseño (_layout_) 
+
+1. Selecciona y organiza los inputs 
+
+]
+
+.pull-right[
+
+**Server**
+
+1. Selecciona las funciones `render*()` y `*Output()` adecuadas 
+
+1. Referite a las salidas esperadas usando `output$&lt;id&gt;`
+
+1. Referite a las entradas esperadas usando `input$&lt;id&gt;`
+
+]
+
+---
+
+# Ejecutá la Shinyapp 🎬
+
+* Dale click al botón `Run App` en la barra de tareas.
+
+
+&lt;img src="run_app.png" width="25%" style="display: block; margin: auto;" /&gt;
+
+
+* Usa un atajo del teclado: Cmd/Ctrl + Shift + Enter.
+
+* Ejecuta `shiny::runApp()` incluyendo la ruta al archivo  **app.R**
+
+.footnote[Source: https://mastering-shiny.org/basic-app.html]
+
+---
+
+# Guía Rápida
+
+
+&lt;img src="cheatsheet.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+.footnote[Source: https://shiny.rstudio.com/articles/cheatsheet.html]
+
+
+---
+
+class: center, middle
+
+# User Interfase (UI)
+
+&lt;img src="mamu_4.jpg" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Diseño
+
+Organiza los paneles y elementos dentro del diseño (_layout_) de UI que elegiste usando una **funcion de diseño**
+
+&lt;img src="layout.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+.footnote[Source: Guía Rápida Shiny - RStudio.]
+
+---
+
+class: center, middle
+
+&lt;img src="slide_mamu1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+`Ui &lt;- fluidPage(sidebarLayout(sidebarPanel(…), mainPanel(…))`
+
+---
+
+# Inputs
+
+Collect values from the user
+
+&lt;img src="inputs.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+.footnote[Source: Guía Rápida Shiny - RStudio.]
+---
+
+class: center, middle
+
+&lt;img src="slide_mamu2.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+`Ui &lt;- fluidPage(sidebarLayout(sidebarPanel(radioButtons(…)), mainPanel(…))`
+
+---
+# Selección de inputs por el usuarie
+
+Argumentos de la función `radioButtons()` 
+
+
+```r
+radioButtons(inputId = `"axis_x"`, 
+             label = `"X"`, 
+             choices = c("Highway fuel economy (mpg)" = "hwy",
+                         "Engine displacement (L)" = "displ",
+                         "Car type" = "class"))
+```
+
+---
+
+class: center, middle
+
+&lt;img src="parentesis.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: center, middle
+
+# ⚠️ ¡Cuidado!  
+
+Las familias pueden ser complejas
+
+&lt;img src="complex.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+class: center, middle
+
+&lt;img src="closing_par.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: center, middle
+
+&lt;img src="mamu_8_sd.jpg" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: inverse
+
+# Demo #1 🙌💻
+
+* Usa la plantilla de Shiny
+
+* Elegí un diseño e inputs
+
+* Ejecutá the App
+
+
+➡️📁 
+**Rladies_app_es**
+
+---
+
+class: center, middle
+
+# Reactivity
+
+
+&lt;img src="mamu_2.jpg" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+&lt;img src="server_react.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+.pull-left[
+
+**UI**
+
+1. Añadí la plantilla -&gt; ***app.R*** 
+
+1. Selecciona una función de diseño (_layout_) 
+
+1. Selecciona y organiza los inputs 
+
+]
+
+.pull-right[
+
+**Server**
+
+1. Selecciona las funciones `render*()` y `*Output()` adecuadas 
+
+1. Referite a las salidas esperadas usando `output$&lt;id&gt;`
+
+1. Referite a las entradas esperadas usando `input$&lt;id&gt;`
+
+]
+
+---
+
+# Funciones `render*()` y `*Output()` 
+
+
+&lt;img src="outputs.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Gráfico
+
+
+```r
+library(ggplot2)
+
+ggplot(data = mpg)+
+  geom_point(mapping = aes(x = displ,
+                           y = hwy,
+                           color = class))
+```
+
+&lt;img src="rladies_shiny_2020_files/figure-html/plot1-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Referite a las entradas usando `input$&lt;id&gt;`
+
+&lt;img src="reactivity.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Referite a las entradas usando`input$&lt;id&gt;`
+
+&lt;img src="reactivity3.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Referite a las salidas usando `output$&lt;id&gt;`
+
+&lt;img src="reactivity.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Referite a las salidas usando `output$&lt;id&gt;`
+
+Observa las funciones `render*()` y `*Output()` 
+
+&lt;img src="reactivity_plot.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="slide_mamu3.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: center, middle
+
+# Extras
+
+
+&lt;img src="mamu_1.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Agrega un tema
+
+&lt;img src="shinythemes.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Agrega un título
+
+
+```r
+*ui&lt;- fluidPage(theme = shinytheme("lumen"),
+*              h1(strong("R-Ladies Buenos Aires")),
+*              h4(em("Shiny meetup")),
+     sidebarLayout( sidebarPanel( radioButtons(…) ),
+                                  mainPanel(… ))
+```
+
+
+&lt;img src="header.png" width="609" style="display: block; margin: auto;" /&gt;
+
+.footnote[Source: Shiny RStudio Cheatsheet.]
+
+---
+
+# Incluí una imagen
+
+1. Agrega el archivo de la imagen dentro de una carpeta llamada ***www*** 
+1. Agrega el siguiente código para posicionar la imagen en la UI `img(src="&lt;file name&gt;")`
+
+
+&lt;img src="structure.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+class: inverse
+
+# Demo #2 🙌💻
+
+* Servidor
+
+* Reactividad
+
+* Elección de tema y posicionamiento de la imagen
+
+* Ejecutar la app
+
+
+➡️📁 
+*Rladies_app*
+
+---
+
+
+class: inverse, center, middle
+
+
+&lt;img src="appfinal.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+class: inverse, center, middle
+
+# Repo
+
+https://github.com/flor14/rladies_shiny_meetup_2020
+
+![](https://media.giphy.com/media/X8HbeXDF7nzaM/200w_d.gif)
+
+---
+
+class: inverse, center, middle
+
+# Ejemplos
+ 
+[RStudio Shiny Gallery](https://shiny.rstudio.com/gallery/)
+
+[Winners of the 1st Shiny Contest](https://blog.rstudio.com/2019/04/05/first-shiny-contest-winners/)
+
+---
+
+class: inverse, center, middle
+
+# Links
+ 
+ [Mastering Shiny](https://mastering-shiny.org/)
+ 
+ [Shiny's Holy Grail - UseR! 2019 - Joe Cheng  video](https://www.youtube.com/watch?v=5KByRC6eqC8) 
+
+ [Tutorial R-Studio](https://shiny.rstudio.com/tutorial)
+
+ [Javascript for Shiny Users](https://github.com/rstudio-conf-2020/js-for-shiny)
+
+[Golem Package](https://github.com/ThinkR-open/golem)
+
+[Shinytest](https://rstudio.github.io/shinytest/articles/package.html)
+
+---
+
+class: center, middle
+
+# ¡Muchas gracias!
+
+[Florencia](@cantoflor_87)
+
+![](https://media.giphy.com/media/3oEjHWPTo7c0ajPwty/giphy.gif)
+
+Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).
+
+The Template comes from [Allison Horst](https://remarkjs.com)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"highlightSpans": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
